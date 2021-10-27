@@ -1,30 +1,50 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-    entry: './src/app.js',
-    output: {
-        path: path.join(__dirname, 'public'),
-        filename: 'bundle.js'
-    },
-    module: {
-        rules: [{
-            loader: 'babel-loader',
-            test: /\.js$/,
-            exclude: /node_modules/
+module.exports = (env) => {
+    const isProduction = env.production ? env.production : false;
+    return {
+        entry: './src/app.js',
+        output: {
+            path: path.join(__dirname, 'public'),
+            filename: 'bundle.js'
+        },        
+        module: {
+            rules: [{
+                loader: 'babel-loader',
+                test: /\.js$/,
+                exclude: /node_modules/
+            },
+            {
+                test: /\.s?css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                    
+                ]
+            }]
         },
-        {
-            test: /\.s?css$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-            ]
-        }]
-    },
-    mode: 'development',
-    devtool: 'eval-cheap-module-source-map',
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),        
-        historyApiFallback: true
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "styles.css"
+            })
+        ],
+        mode: isProduction ? 'production': 'development',
+        devtool: isProduction ? 'source-map' : 'inline-source-map',
+        devServer: {
+            contentBase: path.join(__dirname, 'public'),        
+            historyApiFallback: true
     }
 }
+};
