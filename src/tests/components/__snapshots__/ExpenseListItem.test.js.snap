@@ -10,7 +10,7 @@ exports[`should render ExpenseListItem with props 1`] = `
     </h3>
   </Link>
   <p>
-    1,95 din
+    $ 1.95
     -
     1 January, 1970
   </p>
