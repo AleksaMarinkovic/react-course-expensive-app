@@ -28,6 +28,7 @@
     "moment": "^2.29.1",
     "node-sass": "^6.0.1",
     "normalize.css": "^8.0.1",
+    "numeral": "^2.0.6",
     "raf": "^3.4.1",
     "react": "^17.0.2",
     "react-addons-shallow-compare": "^15.6.3",
@@ -44,11 +45,11 @@
     "webpack": "^5.45.1"
   },
   "devDependencies": {
-    "webpack-cli": "^4.7.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
     "jest": "^27.2.4",
     "react-test-renderer": "^17.0.2",
+    "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   }
 }
