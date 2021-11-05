@@ -1,5 +1,6 @@
 import expensesReducer from '../../reducers/expenses';
 import expenses from '../fixtures/expenses';
+import moment from 'moment';
 
 test(`should have default values`, () => {
     const state = expensesReducer(undefined, {type: `@@INIT`});
@@ -70,4 +71,29 @@ test(`should not edit if id not found`, ()=>{
     }
     const state = expensesReducer(expenses, action);
     expect(state).toEqual(expenses);
+});
+
+test('should set expenses', () => {
+    const newExpenses = [
+        {
+            id: '4',
+            description: 'Covfefe',
+            note: 'New expense 1',
+            amount: 123,
+            createdAt: 1234
+        },
+        {
+            id: '5',
+            description: 'Lemonade',
+            note: 'New expense 2',
+            amount: 4567,
+            createdAt: moment(0).add(3, 'days').valueOf()
+        }
+    ]
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses: newExpenses
+    }
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual(newExpenses);
 });

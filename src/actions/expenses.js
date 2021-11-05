@@ -1,6 +1,6 @@
 import {v4 as uuidv4 } from 'uuid';
 import database from '../firebase/firebase';
-import { set, ref, push} from "firebase/database";
+import { ref, push, get} from "firebase/database";
 
 // ADD_EXPENSE
 export const addExpense = (expense) => ({
@@ -8,6 +8,8 @@ export const addExpense = (expense) => ({
     expense
 });
 
+// START_ADD_EXPENSE ---> pushes data to firebase db and only after its pushed it dispatches 
+// to redux store
 export const startAddExpense = (expenseData = {}) => {
     return (dispatch) => {
         const {
@@ -24,6 +26,29 @@ export const startAddExpense = (expenseData = {}) => {
             }));
         });
     };
+};
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+    type: 'SET_EXPENSES',
+    expenses
+});
+
+// START_SET_EXPENSES ---> fetches data from firebase db and only after it fetches it dispatches 
+// to redux store so it can be rendered
+export const startSetExpenses = () => {
+    return (dispatch) => {
+        return get(ref(database, 'expenses')).then((snapshot) => {
+            const expenses = [];
+            snapshot.forEach((childSnapshot) => {
+                expenses.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+            dispatch(setExpenses(expenses));
+        });
+    }
 };
 
 // REMOVE_EXPENSE

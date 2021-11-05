@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getDatabase, set, ref, remove, update, onValue, get, push, onChildAdded, onChildRemoved, onChildChanged} from "firebase/database";
 
 const firebaseConfig = {
