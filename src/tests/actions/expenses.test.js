@@ -1,4 +1,4 @@
-import { addExpense, removeExpense, editExpense, startAddExpense, setExpenses, startSetExpenses } from "../../actions/expenses";
+import { addExpense, removeExpense, editExpense, startAddExpense, setExpenses, startSetExpenses, startRemoveExpense } from "../../actions/expenses";
 import expenses from '../fixtures/expenses';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -25,7 +25,7 @@ beforeEach((done) => {
       done();
     });
 });
-
+//#region REMOVE EXPENSE AND START REMOVE EXPENSE
 test(`should setup remove expense action object`, () => {
     const action = removeExpense({id: '123abc'});
     expect(action).toEqual({
@@ -34,6 +34,23 @@ test(`should setup remove expense action object`, () => {
     });
 });
 
+test('should remove expense from firebase and redux store', (done) => {
+    const store = createMockStore({});
+    const id = expenses[0].id;
+    store.dispatch(startRemoveExpense({ id })).then(() => {
+         const actions = store.getActions();
+         expect(actions[0]).toEqual({
+             type: 'REMOVE_EXPENSE',
+             id
+         });     
+         return get(ref(database, `expenses/${id}`)); 
+    }).then((snapshot) => {
+         expect(snapshot.val()).toBeNull();
+         done();
+    });
+ });
+//#endregion
+//#region EDIT EXPENSE AND START EDIT EXPENSE
 test(`should setup edit expense action object`, () => {
     const action = editExpense('123abc', { note: `New note`});
     expect(action).toEqual({
@@ -45,6 +62,8 @@ test(`should setup edit expense action object`, () => {
     })
 });
 
+//#endregion
+//#region ADD EXPENSE AND START ADD EXPENSE (with default and provided values)
 test(`should setup add expense action object with provided values`, () => {
     const action = addExpense(expenses[2]);
     expect(action).toEqual({
@@ -102,7 +121,8 @@ test('should add expense with defaults to database and store', (done) => {
         done();
     });;
 });
-
+//#endregion
+//#region SET EXPENSE AND START SET EXPENSE (fetching data from database)
 test('should setup set expense action object with data', () => {
     const action = setExpenses(expenses);
     expect(action).toEqual({
@@ -122,3 +142,4 @@ test('should fetch the expenses from firebase', (done) => {
         done();
     });
 });
+//#endregion

@@ -1,6 +1,6 @@
 import {v4 as uuidv4 } from 'uuid';
 import database from '../firebase/firebase';
-import { ref, push, get} from "firebase/database";
+import { ref, push, get, remove} from "firebase/database";
 
 // ADD_EXPENSE
 export const addExpense = (expense) => ({
@@ -56,6 +56,16 @@ export const removeExpense = ({id} = {}) => ({
     type: 'REMOVE_EXPENSE',
     id
 });
+
+// START_REMOVE_EXPENSE ---> removes expense on the firestore database, then dispatches
+// the redux store remove expense action
+export const startRemoveExpense = ({id} = {}) => {
+    return (dispatch) => {
+        return remove(ref(database, `expenses/${id}`)).then(() => {
+             dispatch(removeExpense({id}));
+        });
+    }
+}
 
 // EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
