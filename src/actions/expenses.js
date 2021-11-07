@@ -11,7 +11,8 @@ export const addExpense = (expense) => ({
 
 // pushes data to firebase db and only after its pushed it dispatches to redux store
 export const startAddExpense = (expenseData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const {
             description = '',
             note = '',
@@ -19,7 +20,7 @@ export const startAddExpense = (expenseData = {}) => {
             createdAt = 0
         } = expenseData;
         const expense = { description, note, amount, createdAt };
-        return push(ref(database, 'expenses'), expense).then((ref) => {
+        return push(ref(database, `users/${uid}/expenses`), expense).then((ref) => {
             dispatch(addExpense({
                 id: ref.key,
                 ...expense
@@ -36,8 +37,9 @@ export const setExpenses = (expenses) => ({
 
 // fetches data from firebase db and only after it fetches it dispatches to redux store so it can be rendered
 export const startSetExpenses = () => {
-    return (dispatch) => {
-        return get(ref(database, 'expenses')).then((snapshot) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return get(ref(database, `users/${uid}/expenses`)).then((snapshot) => {            
             const expenses = [];
             snapshot.forEach((childSnapshot) => {
                 expenses.push({
@@ -59,8 +61,9 @@ export const removeExpense = ({ id } = {}) => ({
 
 // removes expense on the firestore database, then dispatches the redux store remove expense action
 export const startRemoveExpense = ({ id } = {}) => {
-    return (dispatch) => {
-        return remove(ref(database, `expenses/${id}`)).then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return remove(ref(database, `users/${uid}/expenses/${id}`)).then(() => {
             dispatch(removeExpense({ id }));
         });
     };
@@ -75,8 +78,9 @@ export const editExpense = (id, updates) => ({
 
 // edits expense on the firestore database, then dispatches the redux store edit expense action
 export const startEditExpense = (id, updates) => {
-    return (dispatch) => {
-        return update(ref(database, `expenses/${id}`), updates).then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return update(ref(database, `users/${uid}/expenses/${id}`), updates).then(() => {
           dispatch(editExpense(id, updates));
         });
     };
