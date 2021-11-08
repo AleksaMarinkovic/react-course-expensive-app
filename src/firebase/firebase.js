@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, set, ref, remove, update, onValue, get, push, onChildAdded, onChildRemoved, onChildChanged} from "firebase/database";
+import { getDatabase} from "firebase/database";
 import { GoogleAuthProvider } from 'firebase/auth';
+import {initializeAppCheck , ReCaptchaV3Provider} from 'firebase/app-check';
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -17,6 +18,13 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 const googleAuthProvider = new GoogleAuthProvider();
+
+console.log(process.env.NODE_ENV);
+
+// const appCheck = initializeAppCheck(app, {
+//     provider: new ReCaptchaV3Provider('6LeEsiAdAAAAAGTOqHf2-CybSHr_kWhWYhsS7ovH'),
+//     isTokenAutoRefreshEnabled: true
+//   });
 
 export {googleAuthProvider, database as default};
 
