@@ -1,5 +1,5 @@
 .box-layout {
-    background-image: url('/images/bg.jpg');
+    background-image: url('/images/bg-mobile.jpg');
     background-color: lightblue;
     background-size: cover;
     display: flex;
@@ -7,7 +7,10 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    position: fixed
+    position: fixed;
+    @media (min-width: $desktop-breakpoint) {
+        background-image: url('/images/bg.jpg');
+    }
 }
 
 .box-layout__box {
