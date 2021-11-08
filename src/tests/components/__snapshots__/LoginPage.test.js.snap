@@ -1,12 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should match snapshot of the component 1`] = `
-<div>
-  <p>
-    LOG IN: 
-  </p>
-  <button>
-    login
-  </button>
+<div
+  className="box-layout"
+>
+  <div
+    className="box-layout__box"
+  >
+    <h1
+      className="box-layout__title"
+    >
+      Expensify
+    </h1>
+    <p>
+      Get your expenses under control.
+    </p>
+    <hr
+      className="box-layout__separator"
+    />
+    <GoogleButton
+      className="login-button"
+      disabled={false}
+      label="Sign in with Google"
+      onClick={[Function]}
+      tabIndex={0}
+      type="dark"
+    >
+      login
+    </GoogleButton>
+  </div>
 </div>
 `;

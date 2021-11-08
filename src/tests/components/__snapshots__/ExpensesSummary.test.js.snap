@@ -1,27 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should matchsnapshot when 1 expense is showing 1`] = `
-<div>
-  <p>
-    Currently showing 
-    1
-     
-    expense
-     totalling 
-    $ 95.00
-  </p>
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h1
+      className="page-header__title"
+    >
+      Currently showing 
+      <span>
+         
+        1
+         
+      </span>
+       
+      expense
+       totalling 
+      <span>
+         
+        95.00 $ 
+         
+      </span>
+    </h1>
+    <div
+      className="page-header__actions"
+    >
+      <Link
+        className="button"
+        to="/create"
+      >
+        Add expense
+      </Link>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`should matchsnapshot when 2 expenses are showing 1`] = `
-<div>
-  <p>
-    Currently showing 
-    2
-     
-    expenses
-     totalling 
-    $ 753.33
-  </p>
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h1
+      className="page-header__title"
+    >
+      Currently showing 
+      <span>
+         
+        2
+         
+      </span>
+       
+      expenses
+       totalling 
+      <span>
+         
+        753.33 $ 
+         
+      </span>
+    </h1>
+    <div
+      className="page-header__actions"
+    >
+      <Link
+        className="button"
+        to="/create"
+      >
+        Add expense
+      </Link>
+    </div>
+  </div>
 </div>
 `;

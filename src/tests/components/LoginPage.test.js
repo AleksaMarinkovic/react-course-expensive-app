@@ -10,6 +10,6 @@ test('should match snapshot of the component', () => {
 test('should call startLogin on button click', () => {
     const startLoginSpy = jest.fn();
     const wrapper = shallow(<LoginPage startLogin={startLoginSpy}/>);
-    wrapper.find('button').at(0).simulate('click');
+    wrapper.find('GoogleButton').at(0).simulate('click');
     expect(startLoginSpy).toHaveBeenCalled();
 });
