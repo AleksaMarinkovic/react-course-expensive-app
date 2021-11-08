@@ -19,12 +19,14 @@ const database = getDatabase(app);
 
 const googleAuthProvider = new GoogleAuthProvider();
 
-console.log(process.env.NODE_ENV);
+if(process.env.NODE_ENV==="production"){
+    const appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider('6LeEsiAdAAAAAGTOqHf2-CybSHr_kWhWYhsS7ovH'),
+        isTokenAutoRefreshEnabled: true
+    });
+}
 
-// const appCheck = initializeAppCheck(app, {
-//     provider: new ReCaptchaV3Provider('6LeEsiAdAAAAAGTOqHf2-CybSHr_kWhWYhsS7ovH'),
-//     isTokenAutoRefreshEnabled: true
-//   });
+
 
 export {googleAuthProvider, database as default};
 
