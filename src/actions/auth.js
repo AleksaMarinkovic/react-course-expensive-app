@@ -7,7 +7,7 @@ export const login = (uid) => ({
 });
 
 export const logout = () => ({
-  type: 'LOGIN'
+  type: 'LOGOUT'
 });
 
 export const startLogin = () => {

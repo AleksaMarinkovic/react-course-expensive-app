@@ -34,7 +34,6 @@ ReactDOM.render(<LoadingPage/>, document.getElementById('app'));
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log('logged in : ' + user.uid);
     store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {  
       renderApp();
@@ -43,7 +42,6 @@ onAuthStateChanged(auth, (user) => {
       }
     });
   } else {
-    console.log('logout');
     store.dispatch(logout());
     renderApp();
     history.push('/');
